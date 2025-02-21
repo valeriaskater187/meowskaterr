@@ -1,0 +1,286 @@
+Lectura de información de la tabla para completar los nombres de tablas y columnas
+Puede desactivar esta función para obtener un inicio más rápido con -A
+Bienvenido al monitor MySQL. Los comandos terminan con ; o \g.
+Su ID de conexión MySQL es 7639374
+Versión del servidor: 8.0.40 Distribución de origen
+Copyright (c) 2000, 2022, Oracle y/o sus filiales.
+Oracle es una marca registrada de Oracle Corporation y/o sus
+afiliados. Otros nombres pueden ser marcas comerciales de sus respectivos
+propietarios.
+Escriba 'help;' o '\h' para obtener ayuda. Escriba '\c' para borrar la declaración de entrada actual.
+mysql> mostrar bases de datos;
++--------------------+
+| Base de datos |
++--------------------+
+| esquema_de_informacion |
+| esquema_de_rendimiento |
+| valeria07$predeterminado |
++--------------------+
+3 filas en conjunto (0,22 segundos)
+mysql> usa valeria07$default;
+La base de datos ha cambiado
+mysql> mostrar tablas;
++-----------------------+
+|Tablas_en_valeria07$default |
++-----------------------+
+| detalle_horario |
+| horario |
+| plantilla_detalle_horario |
++-----------------------+
+3 filas en conjunto (0,00 seg)
+mysql>CREAR TABLA USUARIOS(
+    -> nombre varchar(25) PREDETERMINADO NULO.
+    -> apellido varchar(25) PREDETERMINADO NULL.
+    -> departamento varchar (25) PREDETERMINADO NULL
+    ->
+    -> ):
+    ->
+^C
+mysql> DESC detalle_horario
+    -> 
+^C
+mysql> DESC detalle_horario;
++--------------------+-------------+------+-----+---------+-------+
+| Field              | Type        | Null | Key | Default | Extra |
++--------------------+-------------+------+-----+---------+-------+
+mysql> 
+| horario_id         | int         | NO   | PRI | NULL    |       |
+| hora_salida        | date        | NO   | PRI | NULL    |       |
+| hora_entrada       | date        | NO   |     | NULL    |       |
+| codigo_incapacidad | varchar(25) | YES  |     | NULL    |       |
++--------------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> DESC horario;
++--------------+------+------+-----+---------+----------------+
+| Field        | Type | Null | Key | Default | Extra          |
++--------------+------+------+-----+---------+----------------+
+| horario_id   | int  | NO   | PRI | NULL    | auto_increment |
+| plantilla_id | int  | YES  |     | NULL    |                |
++--------------+------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> DESC plantilla_detalle_horario;
++--------------------+-------------+------+-----+---------+-------+
+| Field              | Type        | Null | Key | Default | Extra |
++--------------------+-------------+------+-----+---------+-------+
+| plantilla_id       | int         | NO   | PRI | NULL    |       |
+| dia                | int         | NO   | PRI | NULL    |       |
+| codigo_incapacidad | varchar(25) | YES  |     | NULL    |       |
+| turno              | varchar(25) | YES  |     | NULL    |       |
++--------------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> select * from horario;
++------------+--------------+
+| horario_id | plantilla_id |
++------------+--------------+
+|          1 |            5 |
+|          2 |            1 |
+|          3 |            3 |
+|          4 |            2 |
+|          5 |            4 |
++------------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from detalle_horario;
+Empty set (0.01 sec)
+
+mysql> selec * from plantilla_detalle_horario;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selec * from plantilla_detalle_horario' at line 1
+mysql> select * from plantilla_detalle_horario;
++--------------+-----+--------------------+--------+
+| plantilla_id | dia | codigo_incapacidad | turno  |
++--------------+-----+--------------------+--------+
+|            1 |   1 | NULL               | 1/10   |
+|            1 |   2 | NULL               | 1/11,5 |
+|            1 |   3 | NULL               | 1/10   |
+|            1 |   4 | NULL               | 1/11,5 |
+|            1 |   5 | NULL               | 1/10   |
+|            1 |   6 | vacaciones         | NULL   |
+|            1 |   7 | vacaciones         | NULL   |
+|            2 |   1 | NULL               | 2/11,5 |
+|            2 |   2 | NULL               | 1/11,5 |
+|            2 |   3 | NULL               | 2/11,5 |
+|            2 |   4 | NULL               | 1|11.5 |
+|            2 |   5 | NULL               | 1/11,5 |
+|            2 |   6 | vacaciones         | NULL   |
+|            2 |   7 | vacaciones         | NULL   |
+|            3 |   1 | NULL               | 1#8    |
+|            3 |   2 | NULL               | 1.0    |
+|            3 |   3 | viaje_negocios     | NULL   |
++--------------+-----+--------------------+--------+
+17 rows in set (0.00 sec)
+
+mysql> insert into plantilla_detalle_horario (plantilla_id, dia) values (5, 2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> inset into plantilla_detalle_horario (codigo_incapacidad, turno) values (2, 4);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'inset into plantilla_detalle_horario (codigo_incapacidad, turno) values (2, 4)' at line 1
+mysql> inset into plantilla_detalle_horario (codigo_incapacidad, turno) values (2, 4);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'inset into plantilla_detalle_horario (codigo_incapacidad, turno) values (2, 4)' at line 1
+mysql> insert into plantilla_detalle_horario (codigo_incapacidad, turno) values (2, 4);
+Query OK, 1 row affected, 2 warnings (0.01 sec)
+
+mysql> select * from detalle_horario;
+Empty set (0.00 sec)
+
+mysql> CREATE TABLE usuarios (
+    -> 
+    -> nomre vachar(25) DEFAULT NULL
+    -> apellido vachard(25) DEFAULT NULL
+    -> departamento vachard(25) DEFAULT NULL
+    -> 
+    -> ):
+    -> ;|
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'vachar(25) DEFAULT NULL
+apellido vachard(25) DEFAULT NULL
+departamento vachard(2' at line 3
+    -> 
+
+^C
+mysql> CREATE TABLE USUARIOS (
+    -> nombre vachard(25) DEFAULT NULL
+    -> apellido vachard(25) DEFAULT NULL
+    -> departamento vachard(25) DEFAULT NULL
+    -> 
+    -> 
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'vachard(25) DEFAULT NULL
+apellido vachard(25) DEFAULT NULL
+departamento vachard(' at line 2
+mysql> 
+
+^C
+mysql> CREATE TABLE USUARIOS (
+    -> nomre vachard(25) DEFAULT NULL
+    -> apellido vachard(25) DEFAULT NULL
+    -> departamento vachard(25) DEFAULT NULL
+    -> 
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'vachard(25) DEFAULT NULL
+apellido vachard(25) DEFAULT NULL
+departamento vachard(' at line 2
+mysql> 
+mysql>  CREATE TABLE USUARIOS (
+    -> nombre vachard(25) DEFAULT NULL
+    -> 
+    ->     -> apellido vachard(25) DEFAULT NULL
+    -> 
+    -> 
+    -> 
+
+^C
+mysql>  CREATE TABLE usuarios (
+    -> nombre vachar(25) DEFAULT NULL
+    -> apellido vachar(25) DEFAULT NULL
+    -> departamento vachar(25) DEFAULT NULL
+    -> 
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'vachar(25) DEFAULT NULL
+apellido vachar(25) DEFAULT NULL
+departamento vachar(25)' at line 2
+mysql> CREATE TABLE usuarios (
+    -> 
+    -> nombre varchar(25) DEFAULT NULL,
+    -> apellido varchar(26) DEFAULT NULL,
+    -> departamento varchar(28) DEFAULT NULL
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from USUARIOS ;
+ERROR 1146 (42S02): Table 'valeria07$default.USUARIOS' doesn't exist
+mysql> show tables
+    -> 
+
+^C
+mysql> show tables;
++-----------------------------+
+| Tables_in_valeria07$default |
++-----------------------------+
+| detalle_horario             |
+| horario                     |
+| plantilla_detalle_horario   |
+| usuarios                    |
++-----------------------------+
+4 rows in set (0.00 sec)
+
+mysql> DESC USUARIOS;
+ERROR 1146 (42S02): Table 'valeria07$default.USUARIOS' doesn't exist
+mysql> DESC usuarios;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| nombre       | varchar(25) | YES  |     | NULL    |       |
+| apellido     | varchar(26) | YES  |     | NULL    |       |
+| departamento | varchar(28) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into usuarios (nombre,apellido,departamento) values ( 'Daniel', 'Gonzales', 'Rh12');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> CREATE TABLE USUARIOS (
+    -> 
+
+^C
+mysql> CREATE TABLE USUARIOS (
+    -> 
+
+^C
+mysql> select * from usuarios;
++--------+----------+--------------+
+| nombre | apellido | departamento |
++--------+----------+--------------+
+| Daniel | Gonzales | Rh12         |
++--------+----------+--------------+
+1 row in set (0.00 sec)
+
+mysql> insert into usuarios (nombre,apellido,departamento) values ( 'iker', 'Novoa', 'Rh13');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into usuarios (nombre,apellido,departamento) values ( 'Andrés', 'Ramirez', 'Rh14')
+    -> 
+    -> insert into usuarios (nombre,apellido,departamento) values ( 'Andrés', 'Ramirez', 'Rh14');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'insert into usuarios (nombre,apellido,departamento) values ( 'Andrés', 'Ramirez' at line 3
+mysql> insert into usuarios (nombre,apellido,departamento) values ( 'Andrés', 'Ramirez', 'Rh14');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into usuarios (nombre,apellido,departamento) values ( 'Alfonso', 'Rodriguez', 'Rh15');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into usuarios (nombre,apellido,departamento) values ( 'María', 'Cifuentes', 'Rh16');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into usuarios (nombre,apellido,departamento) values ( 'josué', 'franco', 'Rh17');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into usuarios (nombre,apellido,departamento) values ( 'Marisol', 'López', 'Rh18');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into usuarios (nombre,apellido,departamento) values ( 'Miranda', 'Contreras', 'Rh19');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into usuarios (nombre,apellido,departamento) values ( 'Saúl', 'Álvarez', 'Rh20');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into usuarios (nombre,apellido,departamento) values ( 'Nicolás', 'Mascareño', 'Rh21');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from usuarios;
++----------+------------+--------------+
+| nombre   | apellido   | departamento |
++----------+------------+--------------+
+| Daniel   | Gonzales   | Rh12         |
+| iker     | Novoa      | Rh13         |
+| Andrés   | Ramirez    | Rh14         |
+| Alfonso  | Rodriguez  | Rh15         |
+| María    | Cifuentes  | Rh16         |
+| josué    | franco     | Rh17         |
+| Marisol  | López      | Rh18         |
+| Miranda  | Contreras  | Rh19         |
+| Saúl     | Álvarez    | Rh20         |
+| Nicolás  | Mascareño  | Rh21         |
++----------+------------+--------------+
+10 rows in set (0.00 sec)
+mysql>
