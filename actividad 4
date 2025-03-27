@@ -1,0 +1,38 @@
+
+VALERIA LOPEZ <valeria.lopez.2023@cbtis-246.edu.mx>
+0:15 (hace 15 horas)
+para osuna
+
+CREATE TABLE Gente (
+    Flujo varchar (50),
+    Caso_1 varchar (50),
+    Caso_2 varchar (50),
+    caso_3 varchar (50)
+);
+INSERT INTO Gente(Flujo, Caso_1, Caso_2, caso_3) values
+('Alta_de_Usuarios', 0, 0, 0),
+('Baja_de_Usuario', 0, 1, 1),
+('Nueva_Orden', 1, 0, 0),
+('Elimina_Orden', 0, 0, 0);
+CREATE TABLE Empleados (
+    ID_empleado int,
+    Licencia varchar (50)
+);
+INSERT INTO Empleados (id_empleado, Licencia) values
+(1001, 'Tipo_A'),
+(1001, 'Tipo_B'),
+(1001, 'Topo_C'),
+(2002, 'Tipo_A'),
+(2002, 'Tipo_B'),
+(2002, 'Tipo_c'),
+(3003, 'Tipo_A'),
+(3003, 'Tipo_D'),
+(4004, 'Tipo_A'),
+(4004, 'Tipo_B'),
+(4004, 'Tipo_D'),
+(5005, 'Tipo_A'),
+(5005, 'Tipo_B'),
+(5005, 'Tipo_D');
+CREATE TABLE entero (
+    Entero varchar (50)
+);
