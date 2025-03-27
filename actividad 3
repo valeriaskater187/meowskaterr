@@ -1,0 +1,47 @@
+CREATE TABLE situacion (
+    Caso varchar (50)
+    );
+
+INSERT INTO situacion (Caso) VALUES
+('A'),
+('B'),
+('C');
+CREATE TABLE permutacion (
+ Permutacion varchar (50)
+ );
+
+INSERT INTO permutacion (Permutacion) VALUES
+('A,B,C'),
+('A,C,B'),
+('B,A,C'),
+('B,C,A'),
+('C,A,B'),
+('C,B,A')
+
+Create table datos (
+    Desarollo varchar (50),
+    Terminacion varchar (50)
+);
+
+insert into datos (Desarollo, Terminacion) values
+('RestAPI',' 06/01/2024' ),
+('RestAPI', '06/14/2024'),
+('RestAPI', '06/15/2024'),
+('Web', '06/01/2024 '),
+('Web','06/02/2024'),
+('Web', '06/19/2024' ),
+('App','06/01/2024 ') ,
+('App', '05/15/2024'),
+('App', '06/30/2024');
+
+CREATE TABLE Fechas (
+Fecha varchar (50),
+Ajuste varchar (50)
+);
+
+INSERT INTO Fechas (Fecha, Ajuste) VALUES
+('03/01/2025', '100'),
+('04/01/2025', '75'),
+('05/01/2025', '-150'),
+('06/01/2025', '50'),
+('07/01/2025', '-70');
