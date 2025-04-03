@@ -1,0 +1,82 @@
+CREATE TABLE Etapas_Desarrollo (
+    Desarrollo varchar(18) NOT NULL,
+    Etapa int(14) NOT NULL,
+    Finalizado varchar(14) NULL,
+    UNIQUE(Finalizado)
+);
+
+INSERT INTO Etapas_Desarrollo values
+('RestAPI',1,'01/02/2024'),
+('RestAPI',2,'30/05/2024'),
+('RestAPI',3,'29/06/2024'),
+('Web',1,'28/10/2024'),
+('Web',2,'20/11/2024'),
+('Web',3,NULL),
+('App',1,'30/01/2025'),
+('App',2,NULL);
+
+SELECT
+    Desarrollo
+FROM 
+    Etapas_Desarrollo
+WHERE 
+    Finalizado IS NULL;
+
+
+
+CREATE TABLE DirectorioTelefonico (
+    CustomerID INT(18) NOT NULL,
+    TypePhone varchar(15) NOT NULL,
+    Number varchar(15) NOT NULL,
+    PRIMARY KEY(Number)
+);
+
+INSERT INTO DirectorioTelefonico values
+(1001,'Celular','333-897-5421'),
+(1001,'Trabajo','333-897-6542'),
+(1001,'Casa','333-698-9874'),
+(2002,'Celular','333-963-6544'),
+(2002,'Trabajo','333-812-9856'),
+(3003,'Celular','333-987-6541');
+
+SELECT 
+    CustomerID,
+    MAX(CASE WHEN TypePhone = 'Celular' THEN Number END) AS Celular,
+    MAX(CASE WHEN TypePhone = 'Trabajo' THEN Number END) AS Trabajo,
+    MAX(CASE WHEN TypePhone = 'Casa' THEN Number END) AS Casa
+FROM 
+    DirectorioTelefonico
+GROUP BY 
+    CustomerID;
+
+
+
+
+CREATE TABLE MisionMarte (
+    Id_Candidato int(18) NOT NULL,
+    Descripcion varchar(14) NOT NULL,
+    PRIMARY KEY(Id_Candidato,Descripcion)
+);
+
+INSERT INTO MisionMarte values
+(1001,'Geólogo'),
+(1001,'Astrónomo'),
+(1001, 'Bioquímico'),
+(1001, 'Técnico'),
+(2002, 'Cirujano'),
+(2002, 'Mecánico'),
+(2002, 'Geólogo'),
+(3003, 'Geólogo'),
+(3003, 'Astrónomo'),
+(4004, 'Ingeniero');
+
+SELECT
+    Id_Candidato
+FROM
+    MisionMarte
+WHERE
+    Descripcion IN ('Geólogo', 'Astrónomo', 'Bioquímico')
+GROUP BY
+    Id_Candidato
+HAVING
+    COUNT(DISTINCT Descripcion) = 3;
