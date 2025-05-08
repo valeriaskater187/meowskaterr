@@ -1,33 +1,74 @@
-CREATE TABLE Gente (
-    Flujo varchar (50),
-    Caso_1 varchar (50),
-    Caso_2 varchar (50),
-    caso_3 varchar (50)
+CREATE TABLE CasosDePrueba (
+    Caso varchar(20) NOT NULL,
+    PRIMARY KEY(Caso)
 );
-INSERT INTO Gente(Flujo, Caso_1, Caso_2, caso_3) values
-('Alta_de_Usuarios', 0, 0, 0),
-('Baja_de_Usuario', 0, 1, 1),
-('Nueva_Orden', 1, 0, 0),
-('Elimina_Orden', 0, 0, 0);
-CREATE TABLE Empleados (
-    ID_empleado int,
-    Licencia varchar (50)
+
+INSERT INTO CasosDePrueba Values
+('A'),
+('B'),
+('C');
+
+SELECT
+    CONCAT(a.caso, ',', b.caso, ',', c.caso) AS Permutacion
+FROM
+    (SELECT 'A' AS caso UNION ALL SELECT 'B' UNION ALL SELECT 'C') a
+JOIN
+    (SELECT 'A' AS caso UNION ALL SELECT 'B' UNION ALL SELECT 'C') b ON a.caso <> b.caso
+JOIN 
+    (SELECT 'A' AS caso UNION ALL SELECT 'B' UNION ALL SELECT 'C') c ON a.caso <> c.caso AND b.caso <> c.caso;
+
+
+CREATE TABLE Promedio (
+    Desarrollo varchar(18) NOT NULL,
+    Terminacion DATE NOT NULL,
+    PRIMARY KEY(Desarrollo, Terminacion)
 );
-INSERT INTO Empleados (id_empleado, Licencia) values
-(1001, 'Tipo_A'),
-(1001, 'Tipo_B'),
-(1001, 'Topo_C'),
-(2002, 'Tipo_A'),
-(2002, 'Tipo_B'),
-(2002, 'Tipo_c'),
-(3003, 'Tipo_A'),
-(3003, 'Tipo_D'),
-(4004, 'Tipo_A'),
-(4004, 'Tipo_B'),
-(4004, 'Tipo_D'),
-(5005, 'Tipo_A'),
-(5005, 'Tipo_B'),
-(5005, 'Tipo_D');
-CREATE TABLE entero (
-    Entero varchar (50)
+
+INSERT INTO Promedio VALUES
+('RestAPI','2024-06-01'),
+('RestAPI','2024-06-14'),
+('RestAPI','2024-06-15'),
+('Web','2024-06-01'),
+('Web','2024-06-02'),
+('Web','2024-06-19'),
+('App','2024-06-01'),
+('App','2024-05-15'),
+('App','2024-06-30');
+
+SELECT 
+    f1.Desarrollo,
+    ROUND(AVG(DATEDIFF(f1.Terminacion, f2.Terminacion))) AS Promedio
+FROM Promedio f1
+JOIN Promedio f2 
+    ON f1.Desarrollo = f2.Desarrollo AND f2.Terminacion = (
+        SELECT MAX(f3.Terminacion)
+        FROM Promedio f3
+        WHERE f3.Desarrollo = f1.Desarrollo AND f3.Terminacion < f1.Terminacion
+    )
+GROUP BY f1.Desarrollo;
+
+
+CREATE TABLE Inventario (
+    Fecha varchar(18) NOT NULL,
+    Ajuste int NOT NULL,
+    PRIMARY KEY(Fecha,Ajuste)
 );
+
+INSERT INTO Inventario Values
+('03/01/2025',100),
+('04/01/2025',75),
+('05/01/2025',-150),
+('06/01/2025',50),
+('07/01/2025',-70);
+
+SET 
+    @Inventario = 0;
+
+SELECT 
+    Fecha,
+    Ajuste,
+    @Inventario := @Inventario + Ajuste AS Inventario
+FROM 
+    Inventario
+ORDER BY 
+    Fecha;
