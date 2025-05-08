@@ -1,8 +1,3 @@
-
-VALERIA LOPEZ <valeria.lopez.2023@cbtis-246.edu.mx>
-0:15 (hace 15 horas)
-para osuna
-
 CREATE TABLE Gente (
     Flujo varchar (50),
     Caso_1 varchar (50),
